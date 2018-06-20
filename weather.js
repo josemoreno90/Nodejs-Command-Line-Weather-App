@@ -5,7 +5,7 @@ const api = require('./api.json');
 //Print out error message
 
 function get(query) {
-  const request = https.get(`https://api.wunderground.com/api/${api.key}/geolookup/conditions/q/${query}.json`), response => {
+  const request = https.get(`https://api.openweathermap.org/data/2.5/forecast?id=${query}&APPID=${api.key}`, response => {
     let body = "";
     //Read the data
     response.on('data', chunk => {
@@ -16,5 +16,9 @@ function get(query) {
       //Parse data
       //Print the data
     })
-  }
+  })
 }
+
+module.exports.get = get;
+
+//TODO: Handle any Errors
