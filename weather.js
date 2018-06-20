@@ -2,6 +2,11 @@ const https = require('https');
 const api = require('./api.json');
 
 //Print out temp details
+function printWeather(weather) {
+  const message = `Current temperature in ${weather.city.name} is ${weather.list[0].main.temp}F`;
+  console.log(message);
+}
+
 //Print out error message
 
 function get(query) {
@@ -12,9 +17,9 @@ function get(query) {
       body += chunk;
     })
     response.on('end', () => {
-      console.log(body);
-      //Parse data
+      const weather = JSON.parse(body);
       //Print the data
+      printWeather(weather);
     })
   })
 }
